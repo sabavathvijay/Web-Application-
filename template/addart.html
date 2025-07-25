@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Form</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width:500px;
+        margin-left:20%;
+    }
+    
+    .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    select,
+    textarea {
+        width: calc(100% - 22px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    textarea {
+        height: 100px;
+    }
+    
+    input[type="file"] {
+        padding: 5px;
+    }
+    
+    .submit-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+    
+</style>
+<body>
+    <a href="{% url 'art' %}">Back</a>
+    {% if messages %}
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+    {% endif %}
+    <h1>Create Gallery</h1>
+    <form action="{% url 'add_art' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Name:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

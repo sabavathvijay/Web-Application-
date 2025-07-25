@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Table</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+    
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+    
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+</style>
+<body>
+    <a href="{% url 'art' %}">Back</a>
+    {% if list %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>seller</th>
+                <th>Buyed By</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for list in list %}
+            <tr>
+                <td>{{list.art.title}}</td>
+                <td>{{list.art.owner}}</td>
+                <td>{{list.user.username}}</td>
+                <td>{{list.art.description}}</td>
+                <td>{{list.art.price}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p> No data</p>
+    {% endif %}
+    {% else %}
+</body>
+</html>
